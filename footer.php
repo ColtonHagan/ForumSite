@@ -5,7 +5,28 @@
 <script>
     let id = (id) => document.getElementById(id);
     let isEmpty = (str) => !str || str.length === 0;
+    
+    hidePopups();
+    
+    function hidePopups(){
+        let forms = document.getElementsByClassName("form-popup");
+        <?php
+            
+        ?>
+        for(form = 0; form < forms.length; form++){
+            forms[form].style.display = "none";
+        }
+    }
+    
+    function displayForm(formId){
+        let form = document.getElementById(formId);
+        if (form.style.display == "none") form.style.display = "block";
+        else form.style.display = "none";
+    }
 
+    function hideForm(formId){
+        document.getElementById(formId).style.display = "none";
+    }
 
     function specialChars(inputString, minLength, maxLength) {
         const test = /^[a-zA-Z0-9\@\*\!]+$/;

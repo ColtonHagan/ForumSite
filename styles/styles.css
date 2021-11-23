@@ -8,7 +8,7 @@ body {
     margin: 0 auto;              
 } 
  
-#content { 
+#content, #posts { 
     background-color: #fff; 
     border: 1px solid #000; 
     float: left; 
@@ -114,3 +114,13 @@ textarea {
     width: 500px; 
     height: 200px; 
 } 
+
+.form-popup{
+    margin: 5px 0;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.form-popup h1{
+    color: #949494; 
+}
