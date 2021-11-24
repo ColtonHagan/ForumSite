@@ -27,5 +27,4 @@ if ($category != "")
         echo 'Successfully added category '.$category .'. You can now go <a href="index.php">Home</a>'; 
     } 
 
-}      
-    echo 'No category name was entered.'; 
+}

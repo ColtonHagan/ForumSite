@@ -23,6 +23,16 @@
                 $("#topics").html(data);
             });
         });
+        $(".rmCategory2").change(function(){
+            var selectedCategory = $(".rmCategory2").val();
+            $.ajax({
+                type: "POST",
+                url: "processcategory.php",
+                data: {category:selectedCategory}
+            }).done(function(data){
+                $("#rmTopics").html(data);
+            });
+        });
     });
     
     function hidePopups(){

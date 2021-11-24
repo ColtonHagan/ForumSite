@@ -6,14 +6,36 @@ include("header.php");
 
 
 <?php 
+    $id = -1;
+    $level = 1;
+    
+    //$search = '';
+    //if (isset($_SESSION['search'])){
+        //$search = $_SESSION['search'];
+    //}
 
     if(isset($_SESSION['signed_in'])) 
     { 
-        ?>
-        <div id="forms">
-        <?php
         $level = $_SESSION['level'];
         $id = $_SESSION['id'];
+        ?>
+        <div id="forms">
+            <form method = "post" action="index.php">
+                <!-- looks through all of the content including title -->
+                <input type="text" name="searchParam" placeholder = "search for..."></input>
+                <select required name="filters">
+                    <option selected value="0">all categories</option>
+                    <?php
+                        GetAllCategories();
+                    ?>
+                </select>
+                <!-- do a request to get the value of the drop down selection -->
+                <!-- the dropdown is a filter  -->
+                <!-- dropdown for all categories or single categories -->
+                
+                <button type="submit">search</button>
+            </form>
+        <?php
 
         switch($level){
             case 4:
@@ -37,6 +59,24 @@ include("header.php");
                         <button type="button" class="btn cancel" onclick="hideForm('categoryForm')">Close</button>
                     </form>
                 </div>
+
+                <button id="rmCat" onclick="displayForm('rmCatForm')">Delete Category</button>
+                <div class="form-popup" id="rmCatForm">
+                    <form method = "post" action="deletecategory.php" class="form-container">
+                        <h1>Delete Category</h1>
+
+                        <label for="rmCategory1">Choose a category:</label>
+                        <select required name="rmCategory1" id="rmCategory1">
+                            <option value="" disabled selected>-Select a category-</option>
+                            <?php
+                            GetAllCategories();
+                            ?>
+                        </select>
+                        <br>
+                        <button type="submit" class="btn">Delete</button>
+                        <button type="button" class="btn cancel" onclick="hideForm('rmCatForm')">Cancel</button>
+                    </form>
+                </div>
                 <?php
             case 3:
                 ?>
@@ -58,6 +98,30 @@ include("header.php");
                         <br>
                         <button type="submit" class="btn">Submit</button>
                         <button type="button" class="btn cancel" onclick="hideForm('topicForm')">Close</button>
+                    </form>
+                </div>
+                
+                <button id="mkTop" onclick="displayForm('rmTopicForm')">Delete Topic</button>
+                <div class="form-popup" id="rmTopicForm">
+                    <form method = "post" action="deletetopic.php" class="form-container">
+                        <h1>Delete Topic</h1>
+                    
+                        <label for="rmCategory2">Choose a category:</label>
+                        <select required class="rmCategory2" name="rmCategory2" id="rmCategory2">
+                            <option value="" disabled selected>-Select a category-</option>
+                            <?php
+                            GetAllCategories();
+                            ?>
+                        </select>
+                        <br>
+                        <label for="rmTopics">Choose a topic:</label>
+                        <select required class="rmTopics" name="rmTopics" id="rmTopics">
+                            <option value="" disabled selected>-Select a topic-</option>
+                            <!-- This is populated in CategorySelectionChanged() -->
+                        </select>
+                        <br>
+                        <button type="submit" class="btn">Delete</button>
+                        <button type="button" class="btn cancel" onclick="hideForm('rmTopicForm')">Cancel</button>
                     </form>
                 </div>
                 <?php
@@ -103,10 +167,10 @@ include("header.php");
             <hr>
             </div>
         <?php
-    } 
-        ?>
-        <h1>Posts here</h1>
-        <?php
+    }
+
+    include("viewpost.php");
+    GetAllPosts($id, $level);
 
 include 'footer.php'; 
 ?> 
