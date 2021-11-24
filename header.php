@@ -8,6 +8,7 @@ session_start ();
     <meta charset="UTF-8" /> 
     <title>Forum Site</title> 
     <link rel="stylesheet" href="styles/styles.css" type="text/css"> 
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 </head> 
 <body> 
 <h1>Early internet forum</h1> 

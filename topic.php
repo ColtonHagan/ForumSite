@@ -7,8 +7,8 @@ include("header.php");
 <?php 
 
 
-$title = $_REQUEST['topic_title']; 
-$category = $_REQUEST['category']; 
+$title = $_REQUEST['topicTitle']; 
+$category = $_REQUEST['category1']; 
 
 $hidden = checkHidden($category);
 

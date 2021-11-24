@@ -1,3 +1,7 @@
+<?php
+    include("processcategory.php");
+?>
+
 </div><!-- content --> 
 </div><!-- wrapper --> 
 <div id="footer">&copy; 2021 CSCI397B</div> 
@@ -7,13 +11,23 @@
     let isEmpty = (str) => !str || str.length === 0;
     
     hidePopups();
+
+    $(document).ready(function(){
+        $(".category2").change(function(){
+            var selectedCategory = $(".category2").val();
+            $.ajax({
+                type: "POST",
+                url: "processcategory.php",
+                data: {category:selectedCategory}
+            }).done(function(data){
+                $("#topics").html(data);
+            });
+        });
+    });
     
     function hidePopups(){
         let forms = document.getElementsByClassName("form-popup");
-        <?php
-            
-        ?>
-        for(form = 0; form < forms.length; form++){
+        for (form = 0; form < forms.length; form++){
             forms[form].style.display = "none";
         }
     }

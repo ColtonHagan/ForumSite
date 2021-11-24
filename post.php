@@ -2,22 +2,22 @@
 session_start (); 
 include 'connect.php'; 
 include("header.php");
-?> 
 
-<?php 
+$user_id = $_REQUEST['user_id'];
+$category = $_REQUEST['category2']; 
+$topic = $_REQUEST['topics']; 
+$post_contents = $_REQUEST['con'];
+$post_title = $_REQUEST['pst'];
 
 
-$viewStatus = $_REQUEST['viewClass']; 
-$post = $_REQUEST['pst']; 
+$hidden = checkHidden($category);
 
-if ($viewStatus == "in") $viewStatus = 1;
-else $viewStatus = 0;
-
+// Not sure how to get user_id
 $sql = "INSERT INTO  
-            posts(id, category_id, topic_id, user_id, hidden, name) VALUES (?, ?, ?, ?, ?, ?)"; 
+            posts(id, category_id, topic_id, user_id, hidden, name, content) VALUES (?, ?, ?, ?, ?, ?, ?)"; 
 
 $stmt= $db->prepare($sql); 
-$status = $stmt->execute([NULL, $viewStatus, $post]);
+$status = $stmt->execute([NULL,$category,$topic, $user_id, $hidden, $post_title, $post_contents]);
 
 if ($status != 1) 
 { 

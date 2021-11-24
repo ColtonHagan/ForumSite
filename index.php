@@ -13,6 +13,7 @@ include("header.php");
         <div id="forms">
         <?php
         $level = $_SESSION['level'];
+        $id = $_SESSION['id'];
 
         switch($level){
             case 4:
@@ -23,14 +24,14 @@ include("header.php");
                         <h1>Create Category</h1>
                         
                         <label for="viewClass">View class:</label>
-                        <select name="viewClass" id="viewClass" placeholder="-view placeholder-">
-                            <option value="viewPlaceholder">-view placeholder-</option>
+                        <select name="viewClass" id="viewClass">
+                            <option value="" disabled selected>-Select a visability-</option>
                             <option value="in">logged in to view</option>
                             <option value="out">viewed by all</option>
                         </select>
                         <br>
-                        <label for="category">Category title:</label>
-                        <input type="text"name="category"/>
+                        <label for="categoryTitle">Category title:</label>
+                        <input required type="text"name="categoryTitle"/>
                         <br>
                         <button type="submit" class="btn">Submit</button>
                         <button type="button" class="btn cancel" onclick="hideForm('categoryForm')">Close</button>
@@ -44,15 +45,16 @@ include("header.php");
                     <form method = "post" action="topic.php" class="form-container">
                         <h1>Create Topic</h1>
                     
-                        <label for="category">Choose a category:</label>
-                        <select name="category" id="category" placeholder="-Select a category-">
+                        <label for="category1">Choose a category:</label>
+                        <select required name="category1" id="category1">
+                            <option value="" disabled selected>-Select a category-</option>
                             <?php
                             GetAllCategories();
                             ?>
                         </select>
                         <br>
-                        <label for="topic_title">Topic title:</label>
-                        <input type="text"name="topic_title"/>
+                        <label for="topicTitle">Topic title:</label>
+                        <input required type="text"name="topicTitle"/>
                         <br>
                         <button type="submit" class="btn">Submit</button>
                         <button type="button" class="btn cancel" onclick="hideForm('topicForm')">Close</button>
@@ -65,31 +67,27 @@ include("header.php");
                 <div class="form-popup" id="postForm">
                     <form method = "post" action="post.php" class="form-container">
                         <h1>Create Post</h1>
-                    
-                        <label for="category">Choose a category:</label>
-                        <select name="category" id="category" placeholder="-Select a category-">
-                            <option value="placeholder">-Select a category-</option>
-                            <option value="science">Science</option>
-                            <option value="politics">Politics</option>
-                            <option value="social">Social</option>
-                            <option value="economy">Economy</option>
-                            <option value="education">Education</option>
-                            <option value="art">Art</option>
-                            <option value="personal">Personal</option>
+
+                        <input type="hidden" name="user_id" value="<?= $id ?>">
+                        <label for="category2">Choose a category:</label>
+                        <select required class="category2" name="category2" id="category2">
+                            <option value="" disabled selected>-Select a category-</option>
+                            <?php
+                            GetAllCategories();
+                            ?>
                         </select>
                         <br>
-                        <label for="tpc">Choose a topic:</label>
-                        <select name="topics" id="topics" placeholder="-Select a topic-">
-                            <option value="placeholder">-Select a topic-</option>
-                            <option value="science">Science</option>
-                            <option value="politics">Politics</option>
+                        <label for="topics">Choose a topic:</label>
+                        <select required name="topics" id="topics">
+                            <option value="" disabled selected>-Select a topic-</option>
+                            <!-- This is populated in CategorySelectionChanged() -->
                         </select>
                         <br>
                         <label for="pst">Post title:</label>
-                        <input type="text"name="pst"/>
+                        <input required type="text" name="pst"/>
                         <br>
-                        <label for="pst">write your post:</label>
-                        <textarea name="pst"></textarea>
+                        <label for="con">write your post:</label>
+                        <textarea required name="con"></textarea>
                         <br>
                         <button type="submit" class="btn">Submit</button>
                         <button type="button" class="btn cancel" onclick="hideForm('postForm')">Close</button>
