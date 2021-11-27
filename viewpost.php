@@ -72,17 +72,25 @@
                 if(str_contains($content,$substring)){
                     $key = true;
                 }
-                if($key == true){
-                    echo("<div class = 'post' id ='post".$row['id']."'>");
-                    echo("<h2>".$row['name']."</h2>");
-                    echo("<p>".$row['content']."</p>");
-                    if ($post_user_id == $user_id || $user_level > 2){ 
-                        echo('<form method = "post" action="deletepost.php" class="form-container">');
-                        echo('<input type="hidden" name="rmPost" value="'.$row["id"].'">');
-                        echo('<button type="submit" class="btn">delete</button>');
-                        echo("</form>");
+                if($key){
+                    $hidden = $row['hidden'];
+                    if ($hidden == 0 || $user_level > 1){
+                        $post_user_id = $row['user_id'];
+                        $author = $db->query("SELECT username, id FROM user_accounts WHERE id = $post_user_id;"); 
+                        $author->execute();
+                        $authAry = $author->fetch($author->FETCH_ASSOC);
+                        echo("<div class = 'post' id ='post".$row['id']."'>");
+                        echo("<h3 style='float:right;'>Posted by: ".$authAry['username']."</h3>");
+                        echo("<h2>".$row['name']."</h2>");
+                        echo("<p>".$row['content']."</p>");
+                        if ($post_user_id == $user_id || $user_level > 2){ 
+                            echo('<form method = "post" action="deletepost.php" class="form-container">');
+                            echo('<input type="hidden" name="rmPost" value="'.$row["id"].'">');
+                            echo('<button type="submit" class="btn">delete</button>');
+                            echo("</form>");
+                        }
+                        echo("</div>");
                     }
-                    echo("</div>");
                 }
 
 

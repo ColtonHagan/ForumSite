@@ -22,7 +22,7 @@ include("header.php");
         <div id="forms">
             <form method = "post" action="search.php">
                 <!-- looks through all of the content including title -->
-                <input type="text" name="searchParam" placeholder = "search for..."></input>
+                <input required type="text" name="searchParam" placeholder = "search for..."></input>
                 <select required name="filters">
                     <option selected value="0">all categories</option>
                     <?php
