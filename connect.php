@@ -1,8 +1,8 @@
 <?php 
  
 $server     = 'localhost'; 
-$username   = 'projectGroup'; 
-$password   = 'password@123'; 
+$username   = 'root'; 
+$password   = 'root'; 
 $database   = 'forum'; 
 $port       = '3307';
  
@@ -18,7 +18,6 @@ catch (PDOException $e)
     //echo 'Message: ' .$e->getMessage(); 
     exit('Error: could not establish database connection'); 
 } 
- 
 
 
 function GetAllCategories(){

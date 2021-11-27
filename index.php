@@ -20,7 +20,7 @@ include("header.php");
         $id = $_SESSION['id'];
         ?>
         <div id="forms">
-            <form method = "post" action="index.php">
+            <form method = "post" action="search.php">
                 <!-- looks through all of the content including title -->
                 <input type="text" name="searchParam" placeholder = "search for..."></input>
                 <select required name="filters">
@@ -101,7 +101,7 @@ include("header.php");
                     </form>
                 </div>
                 
-                <button id="mkTop" onclick="displayForm('rmTopicForm')">Delete Topic</button>
+                <button id="rmTop" onclick="displayForm('rmTopicForm')">Delete Topic</button>
                 <div class="form-popup" id="rmTopicForm">
                     <form method = "post" action="deletetopic.php" class="form-container">
                         <h1>Delete Topic</h1>
@@ -174,7 +174,3 @@ include("header.php");
 
 include 'footer.php'; 
 ?> 
-
-<!-- Location in ssh: /var/www/html/schradt -->
-<!-- Site: http://csci397b.cs.wwu.edu/schradt/b56NNAzc/Lab5/index.php -->
-<!-- DB: csci397b.cs.wwu.edu/phpmyadmin -->

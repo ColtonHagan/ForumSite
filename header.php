@@ -9,13 +9,15 @@ session_start ();
     <title>Forum Site</title> 
     <link rel="stylesheet" href="styles/styles.css" type="text/css"> 
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head> 
 <body> 
-<h1>Early internet forum</h1> 
+<h1>Early Internet Forum</h1> 
     <div id="wrapper"> 
         <div id="menu"> 
-            <a class="item" href="index.php">Home</a>  
-         
+            <a class="item" href="index.php">Home</a> 
+            <a class="item" id="postPopup" href="#">Sign in to be notified of new posts</a> 
+
             <div id="userbar"> 
 <?php 
             if(isset($_SESSION['signed_in'])) 

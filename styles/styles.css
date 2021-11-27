@@ -124,3 +124,8 @@ textarea {
 .form-popup h1{
     color: #949494; 
 }
+
+.post{
+    border: 1px solid black;
+    padding: 5px;
+}

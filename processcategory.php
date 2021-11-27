@@ -7,8 +7,8 @@ if(isset($_POST["category"])){
 
 function GetAllTopics($category){
     $server     = 'localhost'; 
-    $username   = 'projectGroup'; 
-    $password   = 'password@123'; 
+    $username   = 'root'; 
+    $password   = 'root'; 
     $database   = 'forum'; 
     $port       = '3307';
     

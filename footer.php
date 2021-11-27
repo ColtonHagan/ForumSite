@@ -7,9 +7,11 @@
 <div id="footer">&copy; 2021 CSCI397B</div> 
 
 <script>
-    let id = (id) => document.getElementById(id);
-    let isEmpty = (str) => !str || str.length === 0;
-    
+    // document.getElementById("postPopup").style.display = "none";
+
+    <?php
+    if(isset($_SESSION['signed_in'])){
+    ?>
     hidePopups();
 
     $(document).ready(function(){
@@ -34,7 +36,26 @@
             });
         });
     });
+
+    worker();
+
+    function worker(){
+        var newId = document.getElementById("postPopup").innerHTML;
+
+        $.ajax({
+            type: "POST",
+            url: "postpopup.php",
+            data: {id:newId},
+            success: function(response){
+                $("#postPopup").html(response);
+            },
+            complete:function(){
+                setTimeout(worker, 500);
+            }
+        });
+    }
     
+
     function hidePopups(){
         let forms = document.getElementsByClassName("form-popup");
         for (form = 0; form < forms.length; form++){
@@ -51,6 +72,13 @@
     function hideForm(formId){
         document.getElementById(formId).style.display = "none";
     }
+
+    <?php
+    }   //hide all functions not relevant to those not logged in
+    ?>
+    
+    let id = (id) => document.getElementById(id);
+    let isEmpty = (str) => !str || str.length === 0;
 
     function specialChars(inputString, minLength, maxLength) {
         const test = /^[a-zA-Z0-9\@\*\!]+$/;
@@ -80,7 +108,7 @@
         var user = id("user").value;
         var pass = id("pass").value;
         var pass2 = id("pass2").value;
-        console.log(user);
+        console.log("user " + user);
         var userBool = !isEmpty(user) && specialChars(user, 2, 29);
         var passBool = !isEmpty(pass) && specialChars(pass, 7, 254) && (pass === pass2);
         if (userBool && passBool) {
