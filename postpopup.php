@@ -24,9 +24,13 @@ catch (PDOException $e)
 
 $rows = $db->query("SELECT * FROM posts ORDER BY id DESC;");
 $rowAry = $rows->fetch($rows->FETCH_ASSOC); // This grabs the first row 
-$latestPostId = $rowAry['name'];
+$latestPostName = $rowAry['name'];
+$postid = $rowAry['id'];
 
-echo("Latest post: " . $latestPostId);
+echo('<form method = "post" action="searchpost.php" style="display:inline;">
+        <input type="hidden" name="post_id" value="'.$postid.'">
+        <button type="submit" name = "single-post">Latest Post: '.$latestPostName.'</button>
+        </form>');
 
 }
 

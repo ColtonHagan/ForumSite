@@ -4,6 +4,7 @@ include("connect.php");
 include("header.php");
 $level = $_SESSION['level'];
 $id = $_REQUEST['post_id'];
+$user_id = $_SESSION['id'];
 if(isset($_POST['single-post'])){
     
     global $db;
@@ -20,8 +21,8 @@ if(isset($_POST['single-post'])){
             echo("<h3 style='float:right;'>Posted by: ".$authAry['username']."</h3>");
             echo("<h2>".$row['name']."</h2>");
             echo("<p>".$row['content']."</p>");
-            if ($post_user_id == $user_id || $user_level > 2){ 
-                echo('<form method = "post" action="deletepost.php" class="form-container">');
+            if ($post_user_id == $user_id || $level > 2){ 
+                echo('<hr><form method = "post" action="deletepost.php" class="form-container">');
                 echo('<input type="hidden" name="rmPost" value="'.$row["id"].'">');
                 echo('<button type="submit" class="btn">delete</button>');
                 echo("</form>");

@@ -168,6 +168,27 @@ include("header.php");
             </div>
         <?php
     }
+    else{
+        ?>
+        <div id="forms">
+            <form method = "post" action="search.php">
+                <!-- looks through all of the content including title -->
+                <input required type="text" name="searchParam" placeholder = "search for..."></input>
+                <select required name="filters">
+                    <option selected value="0">all categories</option>
+                    <?php
+                        GetAllCategories();
+                    ?>
+                </select>
+                <!-- do a request to get the value of the drop down selection -->
+                <!-- the dropdown is a filter  -->
+                <!-- dropdown for all categories or single categories -->
+                
+                <button type="submit">search</button>
+            </form>
+        </div>
+        <?php
+    }
 
     include("viewpost.php");
     GetAllPosts($id, $level);

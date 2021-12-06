@@ -35,67 +35,40 @@
             foreach ($rows as $row){
                 
                 $hidden = $row['hidden'];
+                $category_id = $row['category_id'];
+                $topic_id = $row['topic_id'];
+                $name = $row['name'];
+                $postid = $row['id'];
+                $content = $row['content'];
+
+                $cat = $db->query("SELECT name, id FROM categories WHERE id = ".$category_id); 
+                $cat->execute();
+                $catAry = $cat->fetch($cat->FETCH_ASSOC);
+
+                $top = $db->query("SELECT name, id FROM topics WHERE id = ".$topic_id); 
+                $top->execute();
+                $topAry = $top->fetch($top->FETCH_ASSOC); 
                 if ($hidden == 0 || $user_level > 1){
+                    //add the topic name the name
+                    //and add the category maybe one or the other in h3
+                    
                     $post_user_id = $row['user_id'];
                     $author = $db->query("SELECT username, id FROM user_accounts WHERE id = $post_user_id;"); 
                     $author->execute();
-                    $authAry = $author->fetch($author->FETCH_ASSOC);
-                    //add the topic name the name
-                    //and add the category maybe one or the other in h3
-                    echo("<div class = 'post' id ='post".$row['id']."'>");
-                    echo("<h3 style='float:right;'>Posted by: ".$authAry['username']."</h3>");
-                    echo("<h2>".$row['name']."</h2>");
-                    echo("<p>".$row['content']."</p>");
-                    if ($post_user_id == $user_id || $user_level > 2){ 
-                        echo('<form method = "post" action="deletepost.php" class="form-container">');
-                        echo('<input type="hidden" name="rmPost" value="'.$row["id"].'">');
-                        echo('<button type="submit" class="btn">delete</button>');
-                        echo("</form>");
-                    }
-                    echo("</div>");
+                    $authAry = $author->fetch($author->FETCH_ASSOC); 
+
+                    echo('
+                    <form method = "post" action="searchpost.php">
+                        <p>Category: '.$catAry["name"].' | Topic: '.$topAry["name"].'</p>
+                        <p>Title: '.$name.' | Content: '.strlen($content).' characters</p>
+                        <p>By: '.$authAry["username"].'
+                
+                        <input type="hidden" name="post_id" value="'.$postid.'">
+                        <button type="submit" name = "single-post">go to the article</button></p>
+                    </form><hr>');
                 }
             }
         
-        }
-
-        function postSearch($substring,$filter){
-            global $db;
-            $rows = $db->query("SELECT * FROM posts ORDER BY id ASC;"); 
-            $rows->execute(); 
-            $key = false;
-            foreach ($rows as $row){    
-                //if($filter == -1||)
-                //very similar to get all posts
-                if(str_contains($name,$substring)){
-                    $key = true;
-                }
-                if(str_contains($content,$substring)){
-                    $key = true;
-                }
-                if($key){
-                    $hidden = $row['hidden'];
-                    if ($hidden == 0 || $user_level > 1){
-                        $post_user_id = $row['user_id'];
-                        $author = $db->query("SELECT username, id FROM user_accounts WHERE id = $post_user_id;"); 
-                        $author->execute();
-                        $authAry = $author->fetch($author->FETCH_ASSOC);
-                        echo("<div class = 'post' id ='post".$row['id']."'>");
-                        echo("<h3 style='float:right;'>Posted by: ".$authAry['username']."</h3>");
-                        echo("<h2>".$row['name']."</h2>");
-                        echo("<p>".$row['content']."</p>");
-                        if ($post_user_id == $user_id || $user_level > 2){ 
-                            echo('<form method = "post" action="deletepost.php" class="form-container">');
-                            echo('<input type="hidden" name="rmPost" value="'.$row["id"].'">');
-                            echo('<button type="submit" class="btn">delete</button>');
-                            echo("</form>");
-                        }
-                        echo("</div>");
-                    }
-                }
-
-
-            }
-
         }
   
 ?>

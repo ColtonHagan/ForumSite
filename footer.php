@@ -37,9 +37,9 @@
         });
     });
 
-    worker();
+    postUpdater();
 
-    function worker(){
+    function postUpdater(){
         var newId = document.getElementById("postPopup").innerHTML;
 
         $.ajax({
@@ -50,7 +50,7 @@
                 $("#postPopup").html(response);
             },
             complete:function(){
-                setTimeout(worker, 500);
+                setTimeout(postUpdater, 500);
             }
         });
     }
